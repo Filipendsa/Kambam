@@ -2,6 +2,7 @@
 
 import { signOut, useSession } from "next-auth/react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { ThemeToggle } from "@/components/theme-toggle";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -34,7 +35,9 @@ export function Header() {
     <header className="h-16 border-b border-border bg-background flex items-center justify-between px-6 sticky top-0 z-50">
       <span className="text-base font-semibold tracking-tight">TaskBoard</span>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
+        <ThemeToggle />
+        
         <div className="flex flex-col items-end">
           <span className="text-sm font-medium leading-none">
             {session.user.name}
