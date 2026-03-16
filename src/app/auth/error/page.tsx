@@ -23,15 +23,20 @@ export default async function ErrorPage({ searchParams }: ErrorPageProps) {
       <div className="w-full max-w-sm space-y-6 p-8 text-center">
         <div className="space-y-4">
           <div className="space-y-2">
-            <h1 className="text-2xl font-semibold tracking-tight">Acesso negado</h1>
+            <h1 className="text-2xl font-semibold tracking-tight">Ocorreu um erro</h1>
             <p className="text-sm text-muted-foreground">{message}</p>
           </div>
-          {email && (
+          {email && error === "AccessDenied" && (
             <div className="rounded-md bg-muted p-3 text-sm">
               <span className="font-medium">O email: </span>
               <span className="font-bold text-destructive">{email}</span>
               <br />
               <span className="font-medium">não está autorizado.</span>
+            </div>
+          )}
+          {!email && error === "Configuration" && (
+            <div className="rounded-md bg-muted p-3 text-xs text-left">
+              <span className="font-medium">Atenção: </span>O erro de configuração (Configuration Error) ocorre no servidor antes do processo de login concluir. Portanto, o provedor ainda não repassou seu email para o sistema. Verifique as variáveis de ambiente no servidor onde a aplicação está hospedada.
             </div>
           )}
         </div>
