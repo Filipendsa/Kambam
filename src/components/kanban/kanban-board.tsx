@@ -97,12 +97,12 @@ export default function KanbanBoard({
   }
 
   return (
-    <div>
-      <div className="flex items-center gap-4 mb-4">
-        <div className="flex-1">
-          <Progress value={progress} aria-label="Progresso das tarefas" />
+    <div className="w-full flex w-[100%] flex-col mt-4">
+      <div className="flex items-center gap-4 mb-8">
+        <div className="flex-1 max-w-md">
+          <Progress value={progress} aria-label="Progresso das tarefas" className="h-2" />
         </div>
-        <span className="text-sm text-muted-foreground whitespace-nowrap">
+        <span className="text-sm font-medium text-muted-foreground whitespace-nowrap">
           {doneTasks}/{totalTasks} concluídas ({progress}%)
         </span>
       </div>
@@ -112,16 +112,17 @@ export default function KanbanBoard({
         collisionDetection={closestCorners}
         onDragEnd={handleDragEnd}
       >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="flex gap-4 md:gap-6 overflow-x-auto pb-4 snap-x">
           {KANBAN_COLUMNS.map((col) => (
-            <KanbanColumn
-              key={col.value}
-              id={col.value}
-              label={col.label}
-              tasks={getColumnTasks(localTasks, col.value)}
-              onCardClick={onCardClick}
-              onNewTask={onNewTask}
-            />
+            <div key={col.value} className="snap-start min-w-[320px] shrink-0">
+               <KanbanColumn
+                id={col.value}
+                label={col.label}
+                tasks={getColumnTasks(localTasks, col.value)}
+                onCardClick={onCardClick}
+                onNewTask={onNewTask}
+              />
+            </div>
           ))}
         </div>
       </DndContext>
