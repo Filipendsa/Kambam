@@ -6,3 +6,11 @@ node_modules
 *.sqlite3
 .claude
 .planning
+
+# logs
+*.log
+npm-debug.log*
+
+# build info
+tsconfig.tsbuildinfo
+.eslintcache

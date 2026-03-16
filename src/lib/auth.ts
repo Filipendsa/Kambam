@@ -1,27 +1,29 @@
 import type { NextAuthConfig } from "next-auth";
 
 // Allowlist — specific emails only, NOT domain-based
-// Per user requirement: filipe.nogueira@yesode.com and davi.ribeiro@yesode.com
 // Note: Using allowlist (not endsWith("@yesode.com")) — other @yesode.com emails are rejected
 export const ALLOWED_EMAILS: string[] = (
-  process.env.ALLOWED_EMAILS?.split(",") || [
-    "filipe.nogueira@yesode.com",
-    "davi.ribeiro@yesode.com",
-  ]
-).map((e) => e.trim());
+  process.env.ALLOWED_EMAILS?.split(",") || []
+).map((e) => e.trim()).filter(Boolean);
 
 export const authOptions: NextAuthConfig = {
   providers: [],
   callbacks: {
-    async signIn({ profile }) {
+    async signIn({ user, account, profile }) {
+      const email = user?.email || profile?.email;
+      
       // Require email to be verified AND in the specific allowlist
+      const isVerified = profile?.email_verified === true || account?.provider !== "google";
+
       if (
-        profile?.email_verified === true &&
-        ALLOWED_EMAILS.includes(profile.email as string)
+        isVerified &&
+        email &&
+        ALLOWED_EMAILS.includes(email as string)
       ) {
         return true;
       }
-      const emailParam = profile?.email ? `&email=${encodeURIComponent(profile.email)}` : "";
+      
+      const emailParam = email ? `&email=${encodeURIComponent(email)}` : "";
       return `/auth/error?error=AccessDenied${emailParam}`;
     },
     async redirect({ url, baseUrl }) {
