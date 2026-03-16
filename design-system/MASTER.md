@@ -1,52 +1,49 @@
-# MASTER.md - Design System Reference (Kanban - Operação Kambam)
+# MASTER.md - Design System Reference (Kanban - Premium Redesign)
 
 ## Design Language
-- **Typography:** Inter (Sans-serif - Standard UI Font).
-- **Spacing/Sizing Engine:** Múltiplos de 4px (ex: 4, 8, 12, 16, 24, 32, 48).
-- **Primary Accent:** Aurora Purple (High contrast against dark/light).
+- **Estética:** Dark Premium / Monocromático com Alto Contraste (Inspirado em interfaces SaaS de luxo como Linear e Chronicon).
+- **Typography:** Inter (Sans-serif - Standard UI Font). Fontes secundárias/monospaced para tags.
+- **Spacing/Sizing Engine:** Múltiplos de 4px (ex: 4, 8, 12, 16, 24, 32, 48). Espaçamentos internos muito amplos (breathing room).
 
 ## Themes (Light/Dark Mode)
 
-### Dark Mode Tokens (Linear Benchmark)
-- Base Background: `bg-zinc-950` or `#09090b`
-- Surface (Cards/Modules): `bg-zinc-900` or `#18181b`
-- Borders: `border-zinc-800` or `#27272a`
-- Primary Text: `text-zinc-50` or `#fafafa`
-- Muted Text: `text-zinc-400` or `#a1a1aa`
-- Shadows: Deep, tight dark shadows.
+### Dark Mode Tokens (Behance Premium Ref)
+- **Base Background:** Preto absoluto (`bg-black` ou `#000000`)
+- **Surface (Cards):** Quase preto (`bg-zinc-950` ou `#050505`)
+- **Interactive Surface (Hover):** Neutro muito escuro (`bg-zinc-900` ou `#111111`)
+- **Borders:** Incrivelmente sutis, translúcidas (`border border-white/5` ou `border border-white/10`)
+- **Primary Text:** Branco puro (`text-white`)
+- **Muted Text:** Cinza escuro/prata (`text-zinc-400` ou `text-zinc-500`)
+- **Primary Accent:** Branco (Botões primários são blocos sólidos brancos com texto preto)
+- **Shadows:** Não usa drop-shadows convencionais. Confia no contraste de bordas `white/10` para criar profundidade contra o fundo preto absoluto.
 
-### Light Mode Tokens (Stripe Benchmark)
-- Base Background: `bg-zinc-50` or `#fafafa`
-- Surface (Cards/Modules): `bg-white` or `#ffffff`
-- Borders: `border-zinc-200` or `#e4e4e7`
-- Primary Text: `text-zinc-950` or `#09090b`
-- Muted Text: `text-zinc-500` or `#71717a`
-- Shadows: Soft, diffused, elevated shadows (e.g., `shadow-sm`, `shadow-md` with low opacity).
+### Light Mode Tokens
+- Manter o padrão do Next-themes (modo dark será forçado ou dominante).
+- Se presente: Base `#F9FAFB`, Cards `#FFFFFF`, Borders `#E5E7EB`, Text `#09090B`.
 
 ## Components - Kanban Board
 
 ### Board Container
-- Padding: 24px ou 32px
-- Gap (Between Columns): 16px ou 24px
+- Padding: 32px
+- Gap (Between Columns): 24px
 - Overflow-x: auto (Smooth scrolling)
+- Background global: `bg-black`
 
 ### Column (Status)
-- Width: 320px (Fixed or min-width)
-- Title: Font-weight 600, Size 14px, muted color
-- Background: Very subtle tint of surface color
-- Gap (Between Cards): 8px
+- Width: Fixed 340px (mais larga para respirar)
+- Title: Font-weight 500, Size 14px, `text-white/80`, acompanhado de contadores em pílulas (`bg-white/10 text-white/70 rounded-full px-2 py-0.5`).
+- Background: Transparente. Sem fundo na coluna. Apenas uma linha sutil no topo (`border-t border-white/10`) para ancorar o título.
+- Gap (Between Cards): 12px
 
 ### Task Card
-- Background: Mapped to Theme Surface Token
-- Border: 1px solid modeled to Theme Border Token
-- Border Radius: 8px ou 12px
-- Padding: 16px
-- Transition: 150ms ease
-- Title: Font-weight 500, Size 14px, max 2 lines
-- Description: Size 12px, truncated
-- Hover State: Slightly lifted shadow and border tint (Aurora Purple hint)
+- Background: `bg-zinc-950` (Black surface)
+- Border: `border border-white/5` (Muito sutil)
+- Border Radius: 16px (arredondamento luxuoso, mas não circular)
+- Padding: 20px (Espaçamento superior)
+- Title: Font-weight 500, Size 15px, `text-white`, leading comprimido.
+- Description: Removida ou Size 13px `text-zinc-500` (se houver).
+- Badges: Pill-shaped (`rounded-full`), fundo translúcido `bg-white/5`, borda `border-white/10`, texto em 11px/12px `text-zinc-400`.
+- Hover State: Borda ilumina levemente para `border-white/20`, fundo para `bg-zinc-900`. Transição lenta (`transition-all duration-300`).
 
-### Badges / Tags
-- Size: 12px font
-- Padding: 2px 6px ou 4px 8px
-- Border Radius: 4px
+### Avatars
+- Miniaturas circulares (24x24) com borda fina preta (`border-2 border-black`) para sobrepor quando encadeados. Fica no rodapé do card alinhado à direita.

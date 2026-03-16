@@ -97,13 +97,13 @@ export default function KanbanBoard({
   }
 
   return (
-    <div className="w-full flex w-[100%] flex-col mt-4">
+    <div className="w-full h-full flex flex-col p-4 md:p-8 bg-background overflow-hidden relative selection:bg-white/20">
       <div className="flex items-center gap-4 mb-8">
         <div className="flex-1 max-w-md">
-          <Progress value={progress} aria-label="Progresso das tarefas" className="h-2" />
+          <Progress value={progress} aria-label="Progresso das tarefas" className="h-1 bg-white/10 [&>div]:bg-white" />
         </div>
-        <span className="text-sm font-medium text-muted-foreground whitespace-nowrap">
-          {doneTasks}/{totalTasks} concluídas ({progress}%)
+        <span className="text-xs font-medium text-zinc-500 tracking-wide uppercase">
+          {doneTasks}/{totalTasks} Completed
         </span>
       </div>
 
@@ -112,9 +112,9 @@ export default function KanbanBoard({
         collisionDetection={closestCorners}
         onDragEnd={handleDragEnd}
       >
-        <div className="flex gap-4 md:gap-6 overflow-x-auto pb-4 snap-x">
+        <div className="flex flex-1 gap-6 overflow-x-auto pb-4 snap-x hide-scrollbar">
           {KANBAN_COLUMNS.map((col) => (
-            <div key={col.value} className="snap-start min-w-[320px] shrink-0">
+            <div key={col.value} className="snap-start min-w-[340px] shrink-0 h-full">
                <KanbanColumn
                 id={col.value}
                 label={col.label}
