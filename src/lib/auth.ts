@@ -53,6 +53,7 @@ export async function getAuthHandlers() {
 
     const fullConfig: NextAuthConfig = {
       ...authOptions,
+      trustHost: true,
       adapter: PrismaAdapter(db),
       providers: [
         Google({
