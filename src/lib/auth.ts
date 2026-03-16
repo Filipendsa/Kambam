@@ -21,7 +21,8 @@ export const authOptions: NextAuthConfig = {
       ) {
         return true;
       }
-      return false;
+      const emailParam = profile?.email ? `&email=${encodeURIComponent(profile.email)}` : "";
+      return `/auth/error?error=AccessDenied${emailParam}`;
     },
     async redirect({ url, baseUrl }) {
       if (url.startsWith(baseUrl)) return url;
