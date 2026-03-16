@@ -33,17 +33,16 @@ export default function KanbanCard({ task, onClick }: KanbanCardProps) {
       data: { status: task.status },
     });
 
-  const assigneeLabel =
-    ASSIGNEE_OPTIONS.find((a) => a.value === (task.assignee ?? ""))?.label ??
-    "Unassigned";
+  const assigneeImage =
+    ASSIGNEE_OPTIONS.find((a) => a.value === (task.assignee ?? ""))?.label?.[0]?.toUpperCase() ?? "?";
 
   return (
     <div
       ref={setNodeRef}
       style={{ transform: CSS.Translate.toString(transform) }}
       className={cn(
-        "rounded-xl border border-border/80 bg-background p-4 shadow-sm hover:shadow-md transition-all ease-in-out duration-150 cursor-grab hover:border-primary/20",
-        isDragging && "opacity-50 cursor-grabbing shadow-lg border-primary/40 rotate-2 scale-105"
+        "rounded-2xl border border-white/5 bg-zinc-950 p-5 cursor-grab transition-all duration-300 ease-out hover:border-white/20 hover:bg-zinc-900 group",
+        isDragging && "opacity-50 cursor-grabbing scale-[1.02] border-white/30 rotate-1 shadow-2xl z-50 bg-[#0a0a0a]"
       )}
       onClick={() => onClick(task)}
       onKeyDown={(e) => {
@@ -51,32 +50,35 @@ export default function KanbanCard({ task, onClick }: KanbanCardProps) {
       }}
       {...attributes}
     >
-      <div {...listeners} className="flex flex-col gap-3 min-w-0">
-        <h4 className="text-[14px] font-medium leading-snug tracking-tight text-foreground truncate w-full" title={task.title}>
+      <div {...listeners} className="flex flex-col min-w-0">
+        <h4 className="text-[15px] font-medium leading-[1.3] text-white/90 group-hover:text-white transition-colors" title={task.title}>
           {task.title}
         </h4>
         
         {task.description && (
-            <p className="text-xs text-muted-foreground line-clamp-2 leading-relaxed">
-            {task.description}
+            <p className="text-[13px] text-zinc-500 line-clamp-2 leading-relaxed mt-2 font-normal">
+              {task.description}
             </p>
         )}
 
-        <div className="flex items-center justify-between mt-1 pt-3 border-t border-border/40">
-           <div className="flex gap-2 items-center text-xs">
-              <span className="font-medium text-muted-foreground truncate max-w-[100px]">{assigneeLabel}</span>
-           </div>
-           
+        <div className="flex items-center justify-between mt-5">
            <div className="flex gap-2 items-center">
              {task.dueDate && (
-                <div className="flex items-center text-xs font-medium text-muted-foreground bg-muted/50 px-2 py-1 rounded-md">
-                   <Calendar className="mr-1 h-3 w-3" />
+                <div className="flex items-center text-[11px] font-medium text-zinc-400 bg-white/5 border border-white/10 px-2.5 py-1 rounded-full">
+                   <Calendar className="mr-1.5 h-3 w-3 opacity-70" />
                    {new Date(task.dueDate).toLocaleDateString()}
                 </div>
              )}
-              {task.priority === "high" && <Badge variant="destructive" className="h-5 px-1.5 text-[10px] uppercase font-bold tracking-wider">High</Badge>}
-              {task.priority === "medium" && <Badge variant="secondary" className="h-5 px-1.5 text-[10px] uppercase font-bold tracking-wider text-orange-600 bg-orange-100 hover:bg-orange-200">Med</Badge>}
-              {task.priority === "low" && <Badge variant="outline" className="h-5 px-1.5 text-[10px] uppercase font-bold tracking-wider text-muted-foreground">Low</Badge>}
+              {task.priority === "high" && <div className="h-6 px-2.5 flex items-center bg-red-500/10 border border-red-500/20 text-red-400 rounded-full text-[11px] font-medium tracking-wide">High</div>}
+              {task.priority === "medium" && <div className="h-6 px-2.5 flex items-center bg-orange-500/10 border border-orange-500/20 text-orange-400 rounded-full text-[11px] font-medium tracking-wide">Med</div>}
+              {task.priority === "low" && <div className="h-6 px-2.5 flex items-center bg-white/5 border border-white/10 text-zinc-400 rounded-full text-[11px] font-medium tracking-wide">Low</div>}
+           </div>
+
+           {/** Avatar Circular */}
+           <div className="flex -space-x-2">
+              <div className="h-7 w-7 rounded-full bg-zinc-800 border-2 border-zinc-950 flex items-center justify-center text-[10px] font-bold text-white shadow-sm ring-1 ring-white/10">
+                 {assigneeImage}
+              </div>
            </div>
         </div>
       </div>
